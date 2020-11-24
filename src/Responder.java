@@ -17,13 +17,14 @@ public class Responder implements Runnable {
 
     @Override
     public void run() {
+        System.out.println();
         System.out.println("S: new connection to client");
         InetAddress address = packet.getAddress();
         int port = packet.getPort();
         packet = new DatagramPacket(buf, buf.length, address, port);
         String received = new String(packet.getData(), 0, packet.getLength());
 
-        System.out.println(received.trim());
+        System.out.println("S: " + received.trim());
 
         // Build a DatagramPacket object to send a request packet to the server (the server is running locally)
         if(received.contains("CLIENT C1 SYSTEM TIME IS")) {

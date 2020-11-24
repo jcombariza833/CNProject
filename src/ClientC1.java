@@ -31,6 +31,7 @@ public class ClientC1 extends Thread {
             DatagramPacket packet = new DatagramPacket(buf, buf.length, address, 12331);
             socket.send(packet);
 
+            System.out.println();
             System.out.println("C1: DATA SENT");
 
             // Receive the response packet from the server
@@ -42,7 +43,8 @@ public class ClientC1 extends Thread {
             String received = new String(responsePacket.getData(), 0, responsePacket.getLength());
 
             // Display the received string
-            System.out.println(received);
+            System.out.println();
+            System.out.println("C1: " + received);
 
         } catch (UnknownHostException ex) {
             System.out.println("Server not found: " + ex.getMessage());

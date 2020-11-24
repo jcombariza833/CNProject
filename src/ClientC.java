@@ -41,19 +41,23 @@ public class ClientC extends Thread {
         out.println("User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:83.0) Gecko/20100101 Firefox/83.0");
         out.println("Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
         out.println("Accept-Language: en-US,en;q=0.5");
-        //out.println("Accept-Encoding: gzip, deflate");
+//        out.println("Accept-Encoding: gzip, deflate");
         out.println("DNT: 1");
         out.println("Connection: keep-alive");
         out.println("Upgrade-Insecure-Requests: 1");
         out.println("");
         out.flush();
 
-
         String line;
         while ((line = in.readLine()) != null) {
             wResponse.append(line).append("\n");
+
+            // hardcore to make the process faster
+            if(wResponse.length() == 1599) break;  // long of the message
+
         }
 
+        System.out.println();
         System.out.println("C: message received from W");
 
         in.close();
@@ -72,6 +76,7 @@ public class ClientC extends Thread {
         DatagramPacket packet = new DatagramPacket(buf, buf.length, address, 12331);
         socket.send(packet);
 
+        System.out.println();
         System.out.println("C: DATA SENT");
         socket.close();
         System.out.println("C: UDP socket closed");
