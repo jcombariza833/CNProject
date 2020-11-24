@@ -51,9 +51,8 @@ public class ClientC extends Thread {
         String line;
         while ((line = in.readLine()) != null) {
             wResponse.append(line).append("\n");
-
             // hardcore to make the process faster
-            if(wResponse.length() == 1599) break;  // long of the message
+            if(wResponse.length() == 1599) break;  // size of the message
 
         }
 
