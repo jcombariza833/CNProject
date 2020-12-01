@@ -41,7 +41,7 @@ public class ClientC extends Thread {
         out.println("User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:83.0) Gecko/20100101 Firefox/83.0");
         out.println("Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8");
         out.println("Accept-Language: en-US,en;q=0.5");
-//        out.println("Accept-Encoding: gzip, deflate");
+        //out.println("Accept-Encoding: gzip, deflate, br");
         out.println("DNT: 1");
         out.println("Connection: keep-alive");
         out.println("Upgrade-Insecure-Requests: 1");
@@ -49,11 +49,12 @@ public class ClientC extends Thread {
         out.flush();
 
         String line;
+
         while ((line = in.readLine()) != null) {
             wResponse.append(line).append("\n");
             // hardcore to make the process faster
-            if(wResponse.length() == 1599) break;  // size of the message
 
+            if(wResponse.length() == 1599) break;  // size of the message
         }
 
         System.out.println();
