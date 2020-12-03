@@ -1,3 +1,4 @@
+import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -19,12 +20,19 @@ public class Responder implements Runnable {
     public void run() {
         System.out.println();
         System.out.println("S: new connection to client");
+        System.out.print("S: ");
         InetAddress address = packet.getAddress();
         int port = packet.getPort();
         packet = new DatagramPacket(buf, buf.length, address, port);
         String received = new String(packet.getData(), 0, packet.getLength());
+        BufferedOutputStream out = new BufferedOutputStream(System.out);
 
-        System.out.println("S: " + received.trim());
+        try {
+            out.write(packet.getData(), 0, packet.getLength());
+            out.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // Build a DatagramPacket object to send a request packet to the server (the server is running locally)
         if(received.contains("CLIENT C1 SYSTEM TIME IS")) {
